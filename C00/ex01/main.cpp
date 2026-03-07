@@ -9,13 +9,16 @@ int main()
     while (true)
     {
         std::cout << "Enter command (ADD, SEARCH, EXIT): ";
-        std::getline(std::cin, command);
+        if(!std::getline(std::cin, command))
+            break;
         if (command == "ADD")
             Rehber.addContact();
         else if (command == "SEARCH")
             Rehber.searchContacts();
         else if (command == "EXIT")
             break;
+        else
+            std::cout << "Hata: Gecersiz komut. (ADD, SEARCH, EXIT)" << std::endl;
     }
     return 0;
 }

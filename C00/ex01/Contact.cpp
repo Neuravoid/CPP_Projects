@@ -1,53 +1,8 @@
 #include "Contact.hpp"
 
-void Contact::setFirstName(const std::string &name)
+Contact::Contact()
 {
-    this->firstName = name;
-}
-
-std::string Contact::getFirstName() const
-{
-    return(this->firstName);
-}
-
-void Contact::setLastName(const std::string &name)
-{
-    this->lastName = name;
-}
-
-std::string Contact::getLastName() const
-{
-    return(this->lastName);
-}
-
-void Contact::setNickname(const std::string &name)
-{
-    this->nickName = name;
-}
-
-std::string Contact::getNickname() const
-{
-    return(this->nickName);
-}
-
-void Contact::setPhoneNumber(const std::string &number)
-{
-    this->phoneNumber = number;
-}
-
-std::string Contact::getPhoneNumber() const
-{
-    return(this->phoneNumber);
-}
-
-void Contact::setDarkestSecret(const std::string &secret)
-{
-    this->darkestSecret = secret;
-}
-
-std::string Contact::getDarkestSecret() const
-{
-    return(this->darkestSecret);
+    error_flag = 0;
 }
 
 std::string Contact::getFieldByIndex(int index) const
@@ -62,11 +17,35 @@ std::string Contact::getFieldByIndex(int index) const
 
 void Contact::setFieldByIndex(int index, const std::string &value)
 {
+    if (value.empty())
+    {
+        error_flag = 1;
+        return;
+    }
+    if (index == 3)
+    {
+        error_flag = 0;
+        for (size_t i = 0; value[i]; i++)
+        {
+            if (value[i] < '0' || value[i] > '9')
+            {
+                error_flag = 1;
+                return;
+            }
+        }
+        phoneNumber = value;
+        return;
+    }
+    error_flag = 0;
     if (index == 0) firstName = value;
     else if (index == 1) lastName = value;
     else if (index == 2) nickName = value;
-    else if (index == 3) phoneNumber = value;
     else if (index == 4) darkestSecret = value;
+}
+
+int Contact::getErrorFlag() const
+{
+    return this->error_flag;
 }
 
 std::string Contact::getLabelByIndex(int index)

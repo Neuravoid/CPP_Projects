@@ -5,7 +5,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 # Kaynak dosyalar
-SRCS = Search_Phonebook.cpp Add_Phonebook.cpp Contact.cpp main.cpp
+SRCS = Search.cpp Add.cpp Contact.cpp main.cpp
 
 # Nesne dosyaları
 OBJS = $(SRCS:.cpp=.o)

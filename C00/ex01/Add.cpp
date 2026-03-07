@@ -5,27 +5,38 @@ PhoneBook::PhoneBook() {
     this->contactCount = 0;
 }
 
-static std::string check_input(int nbr)
+static bool check_input(int nbr, std::string &input)
 {
-    std::string input;
-
     std::cout << Contact::getLabelByIndex(nbr) << ": ";
-    std::getline(std::cin, input);
-    while (input.empty())
+    while (true)
     {
+        if (!std::getline(std::cin, input))
+            return false;        // EOF sinyali
+        if (!input.empty())
+            return true;         // Geçerli input
         std::cout << "Hatali giris tekrar deneyiniz" << std::endl;
         std::cout << Contact::getLabelByIndex(nbr) << ": ";
-        std::getline(std::cin, input);
     }
-    return input;
 }
 
 void PhoneBook::addContact()
 {
     Contact newContact;
 
+    std::string fields[5];
+
     for (int i = 0; i < 5; i++)
-        newContact.setFieldByIndex(i, check_input(i));
+    {
+        while (true)
+        {
+            if (!check_input(i, fields[i]))
+                return;
+            newContact.setFieldByIndex(i, fields[i]);
+            if (newContact.getErrorFlag() == 0)
+                break;
+            std::cout << "Hata: Gecersiz telefon numarasi. Sadece rakam giriniz." << std::endl;
+        }
+    }
 
     if (contactCount < 8)
     {

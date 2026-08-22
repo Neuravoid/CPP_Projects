@@ -4,7 +4,8 @@ int main(int ac, char **av)
 {
     if (ac != 2)
     {
-        return 0;
+        std::cout << "Error: could not open file." << std::endl;
+        return 1;
     }
     BitcoinExchange("data.csv",av[1]);
 }

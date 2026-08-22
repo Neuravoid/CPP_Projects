@@ -25,6 +25,7 @@ class BitcoinExchange{
         std::map<std::string,float>::iterator startPtr(char type);
         std::map<std::string,float>::iterator endPtr(char type);  
         std::map<std::string,float>::iterator returnBound(std::string date);
+        int compareDates(std::string inputDate);
 };
 
 #endif
